@@ -48,6 +48,9 @@ func create_tokens():
 			else:
 				new_tokens.append(Token.new(line, Constants.TOKEN_BIGGER_THAN))
 		
+		elif current_char == null:
+			break
+		
 		elif current_char == ">":
 			new_tokens.append(Token.new(line, Constants.TOKEN_LESS_THAN))
 			advance()

@@ -42,17 +42,23 @@ func create_output():
 	# [0: TOKEN_VARIABLE, 1: TOKEN_VALUE_TYPE, 2: TOKEN_EQUALS, 3: TOKEN_CALL_FUNCTION, 4: TOKEN_LPAREN, 5: "VALUE", 6: TOKEN_COMMA, 7: "VALUE", 8: TOKEN_RPAREN, 9: TOKEN_END]
 	elif pattern == "DEFINE_VARIABLE_WITH_FUNCTION_CALL+_INPUT_2":
 		if tokens[3].value == "add":
-			define_variable(Token.new(tokens[1].value, tokens[5].value + tokens[7].value))
+			define_variable(Token.new("",tokens[1].value, tokens[5].value + tokens[7].value))
 			return "success"
-		if tokens[3].value == "subtract":
-			define_variable(Token.new(tokens[1].value, tokens[5].value - tokens[7].value))
+		elif tokens[3].value == "subtract":
+			define_variable(Token.new("",tokens[1].value, tokens[5].value - tokens[7].value))
 			return "success"
-		if tokens[3].value == "multiply":
-			define_variable(Token.new(tokens[1].value, tokens[5].value * tokens[7].value))
+		elif tokens[3].value == "multiply":
+			define_variable(Token.new("",tokens[1].value, tokens[5].value * tokens[7].value))
 			return "success"
-		if tokens[3].value == "divide":
-			define_variable(Token.new(tokens[1].value, tokens[5].value / tokens[7].value))
+		elif tokens[3].value == "divide":
+			define_variable(Token.new("",tokens[1].value, tokens[5].value / tokens[7].value))
 			return "success"
+		elif tokens[3].value == "random_int":
+			if tokens[5].type == "INT" and tokens[7].type == "INT":
+				define_variable(Token.new("",tokens[1].value, randi_range(tokens[5].value, tokens[7].value)))
+			else:
+				Error.new("Invalid Types", "In a 'random_int' function both values must be ints")
+	
 	
 	# [0: TOKEN_CALL_FUNCTION, 1: TOKEN_LPAREN, 2: "VALUE", 3: TOKEN_RPAREN, 4: TOKEN_END]
 	elif pattern == "FUNCTION_CALL_+_INPUT":
@@ -91,7 +97,7 @@ func create_output():
 		if tokens[2].type == "EQUAL_TO":
 			result = value1 == value2
 		
-		elif tokens[2].type == "NOT_EQUALS_TO":
+		elif tokens[2].type == "NOT_EQUAL_TO":
 			result = value1 != value2
 		
 		elif tokens[2].type == "BIGGER_THAN":

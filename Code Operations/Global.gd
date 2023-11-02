@@ -35,7 +35,9 @@ const IN_BUILT_FUNCTIONS = [
 	"add",
 	"subtract",
 	"multiply",
-	"divide"
+	"divide",
+	
+	"random_int"
 ]
 
 var CUSTOM_FUNCTIONS = []
