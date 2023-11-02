@@ -21,8 +21,8 @@ func _init(text : String, _main_):
 	
 	tokens = create_tokens()
 
-func advance():
-	pos += 1
+func advance(change = 1):
+	pos += change
 	current_char = line[pos] if pos < len(line) else null
 
 func create_tokens():
@@ -68,7 +68,7 @@ func create_tokens():
 			new_tokens.append(Token.new(Constants.TOKEN_RPAREN))
 			advance()
 		elif current_char == "=":
-			new_tokens.append(Token.new(Constants.TOKEN_EQUALS))
+			new_tokens.append(make_equals())
 			advance()
 		elif current_char == ",":
 			new_tokens.append(Token.new(Constants.TOKEN_COMMA))
@@ -140,8 +140,18 @@ func make_keyword_token():
 		if token != null:
 			return Token.new(token.type, token.value)
 	
+	elif value_type == "if":
+		return Token.new(Constants.TOKEN_IF)
+	
 	else:
 		Error.new("Invalid Syntax", "Sorry, we are not able to identify the problem, but there is a referance without any value.")
+
+func make_equals():
+	advance()
+	if current_char == "=":
+		return Token.new(Constants.TOKEN_EQUAL_TO)
+	advance(-1)
+	return Token.new(Constants.TOKEN_EQUALS)
 
 func make_string():
 	advance()

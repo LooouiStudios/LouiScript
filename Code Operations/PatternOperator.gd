@@ -80,7 +80,8 @@ func create_output():
 		
 		elif tokens[0].value == "get_type":
 			main.console.print_console(tokens[2].type.to_lower())
-		
+	
+	
 
 func define_variable(VALUE):
 	var VARIABLE_NAME = tokens[0]; var VARIABLE_TYPE = tokens[1];
