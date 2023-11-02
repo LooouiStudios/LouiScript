@@ -1,0 +1,5 @@
+
+Token patterns:
+VARIABLE, VALUE_TYPE, EQUALS, (VALUE), LINE_END
+
+

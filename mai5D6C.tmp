@@ -1,0 +1,383 @@
+[gd_scene load_steps=37 format=3 uid="uid://fvnupts6ocn1"]
+
+[ext_resource type="Texture2D" uid="uid://c2ax103i1xhwq" path="res://Assets/file-export-solid.png" id="1_cjki4"]
+[ext_resource type="Script" path="res://Code Operations/main.gd" id="1_e8473"]
+[ext_resource type="Script" path="res://Editor Code/SmoothButtons.gd" id="2_1nw88"]
+[ext_resource type="Texture2D" uid="uid://brbjq52sgdan7" path="res://Assets/file-import-solid.png" id="2_81prr"]
+[ext_resource type="Script" path="res://Editor Code/Top Bar.gd" id="2_nuqtw"]
+[ext_resource type="Texture2D" uid="uid://d3dnpudvq5ki0" path="res://Assets/play-solid.png" id="3_v2w7r"]
+[ext_resource type="FontFile" uid="uid://ditvocbg5f8bc" path="res://Assets/Roboto-Regular.ttf" id="4_1q75y"]
+[ext_resource type="Script" path="res://Editor Code/CodeEdit.gd" id="5_5necx"]
+[ext_resource type="Script" path="res://Console.gd" id="9_bswbg"]
+[ext_resource type="Script" path="res://InputPopUp.gd" id="10_cllpk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_b3o7p"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0m30b"]
+bg_color = Color(0.164063, 0.152344, 0.203125, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tasee"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_km02x"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tngu4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q4dkd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yt0i7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3v4ox"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xlbqt"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j1ic5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yewqj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rab0e"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m2i8u"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_14sh3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_juvmr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2rm52"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_khcab"]
+
+[sub_resource type="CodeHighlighter" id="CodeHighlighter_o1rta"]
+number_color = Color(0.988235, 0.854902, 0.670588, 1)
+symbol_color = Color(0.984314, 0.584314, 0.294118, 1)
+function_color = Color(0.768627, 0.603922, 0.662745, 1)
+member_variable_color = Color(0.768627, 0.603922, 0.662745, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nryb3"]
+bg_color = Color(0.14902, 0.113725, 0.164706, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_56oiu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lmkpx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_b1mpr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_773pi"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rvgqt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k1w0d"]
+bg_color = Color(0.164063, 0.152344, 0.203125, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vj3mw"]
+bg_color = Color(0.14902, 0.113725, 0.164706, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[node name="main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_e8473")
+
+[node name="Other" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ProgressBar" parent="Other"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 600.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxEmpty_b3o7p")
+theme_override_styles/fill = SubResource("StyleBoxFlat_0m30b")
+value = 100.0
+show_percentage = false
+
+[node name="ColorRect2" type="ColorRect" parent="Other"]
+layout_mode = 0
+offset_top = 42.0
+offset_right = 40.0
+offset_bottom = 622.0
+color = Color(0.164706, 0.152941, 0.203922, 1)
+
+[node name="Top Bar" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 53.0
+grow_horizontal = 2
+scale = Vector2(1.2, 1.2)
+script = ExtResource("2_nuqtw")
+
+[node name="ColorRect" type="ProgressBar" parent="Top Bar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 34.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxEmpty_b3o7p")
+theme_override_styles/fill = SubResource("StyleBoxFlat_0m30b")
+value = 100.0
+show_percentage = false
+
+[node name="Left" type="HBoxContainer" parent="Top Bar"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 12.0
+offset_right = 239.0
+offset_bottom = 57.0
+theme_override_constants/separation = 0
+
+[node name="Open" type="Button" parent="Top Bar/Left"]
+custom_minimum_size = Vector2(65, 45)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_tasee")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_km02x")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_tngu4")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_q4dkd")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_yt0i7")
+
+[node name="Sprite2D" type="Sprite2D" parent="Top Bar/Left/Open"]
+modulate = Color(0.34902, 0.352941, 0.458824, 1)
+position = Vector2(29, 23)
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("1_cjki4")
+offset = Vector2(60, 0)
+script = ExtResource("2_1nw88")
+
+[node name="Save" type="Button" parent="Top Bar/Left"]
+custom_minimum_size = Vector2(65, 45)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_3v4ox")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_xlbqt")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_j1ic5")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_yewqj")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_rab0e")
+
+[node name="Sprite2D" type="Sprite2D" parent="Top Bar/Left/Save"]
+modulate = Color(0.34902, 0.352941, 0.458824, 1)
+position = Vector2(29, 23)
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("2_81prr")
+offset = Vector2(-60, 0)
+script = ExtResource("2_1nw88")
+
+[node name="Start" type="Button" parent="Top Bar/Left"]
+custom_minimum_size = Vector2(65, 45)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_m2i8u")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_14sh3")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_juvmr")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_2rm52")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_khcab")
+
+[node name="Sprite2D" type="Sprite2D" parent="Top Bar/Left/Start"]
+modulate = Color(0.34902, 0.352941, 0.458824, 1)
+position = Vector2(23.83, 23)
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("3_v2w7r")
+script = ExtResource("2_1nw88")
+
+[node name="CodeEdit" type="CodeEdit" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 23.0
+offset_top = 70.0
+offset_bottom = -208.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/background_color = Color(0.164706, 0.152941, 0.203922, 1)
+theme_override_colors/line_number_color = Color(0.34902, 0.352941, 0.458824, 1)
+theme_override_fonts/font = ExtResource("4_1q75y")
+theme_override_font_sizes/font_size = 18
+text = "print(3+5)"
+syntax_highlighter = SubResource("CodeHighlighter_o1rta")
+gutters_draw_line_numbers = true
+auto_brace_completion_enabled = true
+auto_brace_completion_pairs = {
+"\"": "\"",
+"'": "'",
+"(": ")",
+"<": ">",
+"[": "]",
+"{": "}"
+}
+script = ExtResource("5_5necx")
+
+[node name="Console" type="Control" parent="."]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -200.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 1
+script = ExtResource("9_bswbg")
+
+[node name="ProgressBar" type="ProgressBar" parent="Console"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/background = SubResource("StyleBoxFlat_nryb3")
+show_percentage = false
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Console"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 21.0
+offset_top = 33.0
+offset_right = -24.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Console/ScrollContainer"]
+custom_minimum_size = Vector2(1050, 180)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="Console/ScrollContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+mouse_filter = 1
+theme_override_fonts/font = ExtResource("4_1q75y")
+text = "       18:32:20 test"
+
+[node name="NavBar" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -35.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="NavBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_top = -1.0
+offset_right = -14.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ConsoleToggle" type="Button" parent="NavBar/HBoxContainer"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_56oiu")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_lmkpx")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_b1mpr")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_773pi")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_rvgqt")
+text = "  Console  "
+
+[node name="ProgressBar" type="ProgressBar" parent="NavBar/HBoxContainer/ConsoleToggle"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/background = SubResource("StyleBoxFlat_k1w0d")
+show_percentage = false
+
+[node name="InputPopUp" type="Control" parent="." groups=["input_popup"]]
+visible = false
+custom_minimum_size = Vector2(400, 200)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("10_cllpk")
+
+[node name="ProgressBar" type="ProgressBar" parent="InputPopUp"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/background = SubResource("StyleBoxFlat_vj3mw")
+show_percentage = false
+
+[node name="TextEdit" type="TextEdit" parent="InputPopUp"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 18.0
+offset_top = -23.0
+offset_right = -14.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+placeholder_text = "Input your answer"
+
+[node name="Label" type="Label" parent="InputPopUp"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 46.0
+offset_right = 383.0
+offset_bottom = 69.0
+text = "(prompt)"
+
+[connection signal="pressed" from="Top Bar/Left/Start" to="." method="_on_start_pressed"]
+[connection signal="text_changed" from="CodeEdit" to="CodeEdit" method="_on_text_changed"]
+[connection signal="pressed" from="NavBar/HBoxContainer/ConsoleToggle" to="Console" method="_on_console_toggle_pressed"]
