@@ -44,6 +44,14 @@ func run_program():
 			pattern.append(type)
 		
 		if pattern in Constants.TOKEN_PATTERNS.values():
+			var remove = []
+			for if_passed in ifs_passed:
+				if if_passed > tokens[0].tabs:
+					remove.append(if_passed)
+			
+			for delete in remove:
+				ifs_passed.remove_at(ifs_passed.find(delete))
+			
 			if tokens[0].tabs in ifs_passed:
 				print("pattern matched! ", pattern)
 				var pattern_str = Constants.TOKEN_PATTERNS.find_key(pattern)

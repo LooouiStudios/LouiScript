@@ -20,23 +20,23 @@ func create_output():
 	elif pattern == "DEFINE_VARIABLE_WITH_FUNCTION_CALL+_INPUT":
 		if tokens[3].value == "input":
 			var input = await input_function(tokens[5])
-			define_variable(Token.new(Constants.TOKEN_STRING, input))
+			define_variable(Token.new("", Constants.TOKEN_STRING, input))
 			return "success"
 		
 		elif tokens[3].value == "make_int":
-			define_variable(Token.new(Constants.TOKEN_INT, int(tokens[5].value)))
+			define_variable(Token.new("", Constants.TOKEN_INT, int(tokens[5].value)))
 			return "success"
 		
 		elif tokens[3].value == "make_float":
-			define_variable(Token.new(Constants.TOKEN_FLOAT, float(tokens[5].value)))
+			define_variable(Token.new("", Constants.TOKEN_FLOAT, float(tokens[5].value)))
 			return "success"
 		
 		elif tokens[3].value == "make_string":
-			define_variable(Token.new(Constants.TOKEN_INT, str(tokens[5].value)))
+			define_variable(Token.new("", Constants.TOKEN_INT, str(tokens[5].value)))
 			return "success"
 		
 		elif tokens[3].value == "len":
-			define_variable(Token.new(Constants.TOKEN_INT, len(tokens[5].value)))
+			define_variable(Token.new("", Constants.TOKEN_INT, len(tokens[5].value)))
 			return "success"
 	
 	# [0: TOKEN_VARIABLE, 1: TOKEN_VALUE_TYPE, 2: TOKEN_EQUALS, 3: TOKEN_CALL_FUNCTION, 4: TOKEN_LPAREN, 5: "VALUE", 6: TOKEN_COMMA, 7: "VALUE", 8: TOKEN_RPAREN, 9: TOKEN_END]
