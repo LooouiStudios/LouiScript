@@ -220,6 +220,7 @@ theme_override_colors/background_color = Color(0.164706, 0.152941, 0.203922, 1)
 theme_override_colors/line_number_color = Color(0.34902, 0.352941, 0.458824, 1)
 theme_override_fonts/font = ExtResource("4_1q75y")
 theme_override_font_sizes/font_size = 18
+draw_tabs = true
 syntax_highlighter = SubResource("CodeHighlighter_o1rta")
 gutters_draw_line_numbers = true
 auto_brace_completion_enabled = true
@@ -227,7 +228,7 @@ auto_brace_completion_pairs = {
 "\"": "\"",
 "'": "'",
 "(": ")",
-"<": ">",
+"<<": ">>",
 "[": "]",
 "{": "}"
 }

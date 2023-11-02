@@ -36,11 +36,20 @@ func create_tokens():
 		
 		if advance_auto:
 			if current_char == ">":
-				advance_auto = false
+				advance()
+				if current_char == ">":
+					advance_auto = false
 			advance()
 		
 		elif current_char == "<": # Comments
-			advance_auto = true
+			advance()
+			if current_char == "<":
+				advance_auto = true
+			else:
+				new_tokens.append(Token.new(line, Constants.TOKEN_BIGGER_THAN))
+		
+		elif current_char == ">":
+			new_tokens.append(Token.new(line, Constants.TOKEN_LESS_THAN))
 			advance()
 		elif current_char == '"': # Strings
 			new_tokens.append(make_string())
@@ -49,36 +58,42 @@ func create_tokens():
 		elif current_char == "@": # Defining variables
 			new_tokens.append(make_variable_token())
 		elif current_char == "+":
-			new_tokens.append(Token.new(Constants.TOKEN_PLUS))
+			new_tokens.append(Token.new(line, Constants.TOKEN_PLUS))
 			advance()
 		elif current_char == "-":
-			new_tokens.append(Token.new(Constants.TOKEN_MINUS))
+			new_tokens.append(Token.new(line, Constants.TOKEN_MINUS))
 			advance()
 		elif current_char == "*":
-			new_tokens.append(Token.new(Constants.TOKEN_MULTIPLY))
+			new_tokens.append(Token.new(line, Constants.TOKEN_MULTIPLY))
 			advance()
 		elif current_char == "/":
-			new_tokens.append(Token.new(Constants.TOKEN_DIVIDE))
+			new_tokens.append(Token.new(line, Constants.TOKEN_DIVIDE))
 			slash_count += 1
 			advance()
 		elif current_char == "(":
-			new_tokens.append(Token.new(Constants.TOKEN_LPAREN))
+			new_tokens.append(Token.new(line, Constants.TOKEN_LPAREN))
 			advance()
 		elif current_char == ")":
-			new_tokens.append(Token.new(Constants.TOKEN_RPAREN))
+			new_tokens.append(Token.new(line, Constants.TOKEN_RPAREN))
 			advance()
 		elif current_char == "=":
 			new_tokens.append(make_equals())
 			advance()
 		elif current_char == ",":
-			new_tokens.append(Token.new(Constants.TOKEN_COMMA))
+			new_tokens.append(Token.new(line, Constants.TOKEN_COMMA))
 			advance()
+		elif current_char == "!":
+			advance()
+			if current_char == "=":
+				new_tokens.append(Token.new(line, Constants.TOKEN_NOT_EQUAL_TO))
+			else:
+				Error.new("Invalid Syntax", "A '!' must be followed up with a '='")
 		elif current_char in Constants.ALPHABET:
 			new_tokens.append(make_keyword_token())
 		else:
 			advance()
 	
-	new_tokens.append(Token.new(Constants.TOKEN_END))
+	new_tokens.append(Token.new(line, Constants.TOKEN_END))
 	return new_tokens
 
 func make_number():
@@ -95,9 +110,9 @@ func make_number():
 		advance()
 	
 	if dot_count == 0:
-		return Token.new(Constants.TOKEN_INT, int(number_str))
+		return Token.new(line, Constants.TOKEN_INT, int(number_str))
 	else:
-		return Token.new(Constants.TOKEN_FLOAT, float(number_str))
+		return Token.new(line, Constants.TOKEN_FLOAT, float(number_str))
 
 func make_variable_token():
 	var variable_name = ""
@@ -114,7 +129,7 @@ func make_variable_token():
 	
 	elif current_char == ",":
 		advance()
-		return Token.new(Constants.TOKEN_VARIABLE, variable_name)
+		return Token.new(line, Constants.TOKEN_VARIABLE, variable_name)
 
 func make_keyword_token():
 	var value_type = ""
@@ -125,23 +140,23 @@ func make_keyword_token():
 	print(main.active_variables)
 	
 	if value_type in Constants.VALUE_TYPES:
-		return Token.new(Constants.TOKEN_VALUE_TYPE, value_type)
+		return Token.new(line, Constants.TOKEN_VALUE_TYPE, value_type)
 	
 	elif value_type in Constants.KEYWORDS:
 		if value_type in ["true", "false"]:
 			var value = true if value_type == "true" else false
-			return Token.new(Constants.TOKEN_BOOL, value)
+			return Token.new(line, Constants.TOKEN_BOOL, value)
 	
 	elif value_type in Constants.IN_BUILT_FUNCTIONS or value_type in Constants.CUSTOM_FUNCTIONS:
-		return Token.new(Constants.TOKEN_CALL_FUNCTION, value_type)
+		return Token.new(line, Constants.TOKEN_CALL_FUNCTION, value_type)
 	
 	elif value_type in main.active_variables.keys():
 		var token = main.active_variables[value_type]
 		if token != null:
-			return Token.new(token.type, token.value)
+			return Token.new(line, token.type, token.value)
 	
 	elif value_type == "if":
-		return Token.new(Constants.TOKEN_IF)
+		return Token.new(line, Constants.TOKEN_IF)
 	
 	else:
 		Error.new("Invalid Syntax", "Sorry, we are not able to identify the problem, but there is a referance without any value.")
@@ -149,9 +164,9 @@ func make_keyword_token():
 func make_equals():
 	advance()
 	if current_char == "=":
-		return Token.new(Constants.TOKEN_EQUAL_TO)
+		return Token.new(line, Constants.TOKEN_EQUAL_TO)
 	advance(-1)
-	return Token.new(Constants.TOKEN_EQUALS)
+	return Token.new(line, Constants.TOKEN_EQUALS)
 
 func make_string():
 	advance()
@@ -162,7 +177,7 @@ func make_string():
 	
 	if current_char == '"':
 		advance()
-		return Token.new(Constants.TOKEN_STRING, string)
+		return Token.new(line, Constants.TOKEN_STRING, string)
 	else:
 		Error.new("Invalid syntax", 'Expected a closing quatation mark (").')
 

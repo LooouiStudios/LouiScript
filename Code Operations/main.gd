@@ -6,6 +6,7 @@ var token_lines : Array = []
 var last_used_label = null
 
 var active_variables : Dictionary = {}
+var ifs_passed = [0]
 
 func _on_start_pressed():
 	run_program()
@@ -16,6 +17,8 @@ func add_to_console(text : String, print = false):
 		last_used_label = label
 
 func run_program():
+	ifs_passed = [0]
+	
 	console.show()
 	for child in console.vbox.get_children():
 		if child.name != "Label":
@@ -26,18 +29,12 @@ func run_program():
 	print("Starting program ------------------------------- " + Time.get_time_string_from_system())
 	
 	var lines = code_edit.text.split("\n")
+	
 	for line in lines:
 		Constants.current_line += 1
 		var token_creator = TokenCreator.new(line, self)
 		token_creator.print_tokens()
 		var tokens = token_creator.tokens
-		
-		#var parser = Parser.new(tokens)
-		#print(parser.parse().get_str())
-		
-		#var token_interpreter = TokenInterpreter.new(tokens)
-		#tokens = token_interpreter.run_interpreter()
-		#token_interpreter.print_tokens(tokens)
 		
 		var pattern = []
 		for token in tokens:
@@ -47,10 +44,11 @@ func run_program():
 			pattern.append(type)
 		
 		if pattern in Constants.TOKEN_PATTERNS.values():
-			print("pattern matched! ", pattern)
-			var pattern_str = Constants.TOKEN_PATTERNS.find_key(pattern)
-			var pattern_operator = PatternOperator.new(pattern_str, tokens, self)
-			await pattern_operator.create_output() == "success"
+			if tokens[0].tabs in ifs_passed:
+				print("pattern matched! ", pattern)
+				var pattern_str = Constants.TOKEN_PATTERNS.find_key(pattern)
+				var pattern_operator = PatternOperator.new(pattern_str, tokens, self)
+				await pattern_operator.create_output() == "success"
 	
 	active_variables.clear()
 	print("Ending program --------------------------------- " + Time.get_time_string_from_system())

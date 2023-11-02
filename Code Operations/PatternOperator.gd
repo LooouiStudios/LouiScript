@@ -81,7 +81,31 @@ func create_output():
 		elif tokens[0].value == "get_type":
 			main.console.print_console(tokens[2].type.to_lower())
 	
-	
+	# [0: TOKEN_IF, 1: "VALUE", 2: "IF_OPERATOR", 3: "VALUE", 4: TOKEN_END]
+	elif pattern == "IF_STATEMENT":
+		var result : bool
+		
+		var value1 = tokens[1].value
+		var value2 = tokens[3].value
+		
+		if tokens[2].type == "EQUAL_TO":
+			result = value1 == value2
+		
+		elif tokens[2].type == "NOT_EQUALS_TO":
+			result = value1 != value2
+		
+		elif tokens[2].type == "BIGGER_THAN":
+			result = value1 < value2
+		
+		elif tokens[2].type == "LESS_THAN":
+			result = value1 > value2
+		
+		print(value1, " ", value2)
+		print("Result: ", result)
+		if result:
+			main.ifs_passed.append(tokens[0].tabs + 1)
+		
+		return "success"
 
 func define_variable(VALUE):
 	var VARIABLE_NAME = tokens[0]; var VARIABLE_TYPE = tokens[1];

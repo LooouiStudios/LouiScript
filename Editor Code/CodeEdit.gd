@@ -46,7 +46,7 @@ func _ready():
 	
 	syntax_highlighter.add_color_region('"', '"', colors["light_orange"])
 	syntax_highlighter.add_color_region("@", ",", colors["dark_purple"])
-	syntax_highlighter.add_color_region("<", ">", colors["gray_purple"])
+	syntax_highlighter.add_color_region("<<", ">>", colors["gray_purple"])
 	syntax_highlighter.add_color_region("{", "}", colors["gray_purple"])
 	
 	add_theme_font_size_override("font_size", font_size)
