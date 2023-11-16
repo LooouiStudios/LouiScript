@@ -2,11 +2,20 @@ extends Control
 
 @onready var code_edit = get_node("CodeEdit")
 @onready var console = get_node("Console")
+
+@onready var main_window = get_window()
+
 var token_lines : Array = []
 var last_used_label = null
 
 var active_variables : Dictionary = {}
 var ifs_passed = [0]
+var ifs_not_passed = []
+var last_lines = {}
+var past_if_result = false
+
+func _ready():
+	main_window.gui_embed_subwindows = false
 
 func _on_start_pressed():
 	run_program()
@@ -18,6 +27,7 @@ func add_to_console(text : String, print = false):
 
 func run_program():
 	ifs_passed = [0]
+	Constants.current_line = 0
 	
 	console.show()
 	for child in console.vbox.get_children():
@@ -29,6 +39,7 @@ func run_program():
 	print("Starting program ------------------------------- " + Time.get_time_string_from_system())
 	
 	var lines = code_edit.text.split("\n")
+	var ifs = 0
 	
 	for line in lines:
 		Constants.current_line += 1
@@ -53,10 +64,39 @@ func run_program():
 				ifs_passed.remove_at(ifs_passed.find(delete))
 			
 			if tokens[0].tabs in ifs_passed:
-				print("pattern matched! ", pattern)
 				var pattern_str = Constants.TOKEN_PATTERNS.find_key(pattern)
+				print("pattern matched! ", pattern_str)
 				var pattern_operator = PatternOperator.new(pattern_str, tokens, self)
-				await pattern_operator.create_output() == "success"
+				var last_line_on_tab = last_lines[tokens[0].tabs] if tokens[0].tabs in last_lines.keys() else null
+				
+				if pattern != Constants.TOKEN_PATTERNS["ELSE_STATEMENT"]:
+					var previous_if_result = past_if_result
+					
+					await pattern_operator.create_output() == "success"
+					if pattern == Constants.TOKEN_PATTERNS["IF_STATEMENT"]:
+						if ifs == 0:
+							past_if_result = pattern_operator.if_result
+							if pattern_operator.if_result:
+								ifs += 1
+						else:
+							ifs_passed.pop_back()
+					elif pattern == Constants.TOKEN_PATTERNS["ELSE_IF_STATEMENT"]:
+						if ifs == 0:
+							past_if_result = pattern_operator.if_result
+							if pattern_operator.if_result:
+								ifs += 1
+						else:
+							ifs_passed.pop_back()
+				elif last_line_on_tab[0] in [Constants.TOKEN_PATTERNS["IF_STATEMENT"], Constants.TOKEN_PATTERNS["ELSE_IF_STATEMENT"]]:
+					print("IFS ", ifs)
+					if ifs == 0:
+						ifs_passed.append(tokens[0].tabs + 1)
+						await pattern_operator.create_output() == "success"
+				else:
+					Error.new("ERROR!", "UNKOWN ERROR")
+					return
+				
+				last_lines[tokens[0].tabs] = [pattern, ifs_passed, tokens[0]]
 	
 	active_variables.clear()
 	print("Ending program --------------------------------- " + Time.get_time_string_from_system())

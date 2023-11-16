@@ -5,6 +5,8 @@ var pattern
 var tokens
 var main
 
+var if_result = false
+
 # Called when the node enters the scene tree for the first time.
 func _init(_pattern_ : String, _tokens_ : Array, _main_ : Object):
 	pattern = _pattern_
@@ -87,31 +89,50 @@ func create_output():
 		elif tokens[0].value == "get_type":
 			main.console.print_console(tokens[2].type.to_lower())
 	
+	# [0: TOKEN_CALL_FUNCTION, 1: TOKEN_LPAREN, 2: "VALUE", 3: TOKEN_COMMA, 4: "VALUE", 5: TOKEN_RPAREN, 6: TOKEN_END],
+	elif pattern == "FUNCTION_CALL_+_INPUT_2":
+		if tokens[0].value == "create_window":
+			if tokens[2].type == Constants.TOKEN_INT and tokens[4].type == Constants.TOKEN_INT:
+				var window = Window.new()
+				window.size = Vector2(tokens[2].value, tokens[4].value)
+				window.position = main.get_global_mouse_position()
+				main.add_child(window)
+			else:
+				Error.new("Invalid Syntax", "Both Values must be INTs when calling 'create_window'")
+	
 	# [0: TOKEN_IF, 1: "VALUE", 2: "IF_OPERATOR", 3: "VALUE", 4: TOKEN_END]
 	elif pattern == "IF_STATEMENT":
-		var result : bool
-		
 		var value1 = tokens[1].value
 		var value2 = tokens[3].value
-		
-		if tokens[2].type == "EQUAL_TO":
-			result = value1 == value2
-		
-		elif tokens[2].type == "NOT_EQUAL_TO":
-			result = value1 != value2
-		
-		elif tokens[2].type == "BIGGER_THAN":
-			result = value1 < value2
-		
-		elif tokens[2].type == "LESS_THAN":
-			result = value1 > value2
-		
-		print(value1, " ", value2)
-		print("Result: ", result)
-		if result:
-			main.ifs_passed.append(tokens[0].tabs + 1)
-		
-		return "success"
+		if_statement(value1, value2, tokens[2])
+	
+	#[0: TOKEN_ELSE, 1: TOKEN_IF, 2: "VALUE", 3: "IF_OPERATOR", 4: "VALUE"],
+	elif pattern == "ELSE_IF_STATEMENT":
+		var value1 = tokens[2].value
+		var value2 = tokens[4].value
+		if_statement(value1, value2, tokens[3])
+
+func if_statement(value1, value2, operator):
+	var result = false
+	if operator.type == "EQUAL_TO":
+		result = value1 == value2
+	
+	elif operator.type == "NOT_EQUAL_TO":
+		result = value1 != value2
+	
+	elif operator.type == "BIGGER_THAN":
+		result = value1 < value2
+	
+	elif operator.type == "LESS_THAN":
+		result = value1 > value2
+	
+	print(value1, " ", value2)
+	print("----Result: ", result)
+	if result:
+		main.ifs_passed.append(tokens[0].tabs + 1)
+	if_result = result
+	
+	return "success"
 
 func define_variable(VALUE):
 	var VARIABLE_NAME = tokens[0]; var VARIABLE_TYPE = tokens[1];

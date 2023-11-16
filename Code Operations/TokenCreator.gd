@@ -45,6 +45,8 @@ func create_tokens():
 			advance()
 			if current_char == "<":
 				advance_auto = true
+			elif current_char == "=":
+				new_tokens.append(Token.new(line, Constants.TOKEN_BIGGER_OR_EQUAL_TO))
 			else:
 				new_tokens.append(Token.new(line, Constants.TOKEN_BIGGER_THAN))
 		
@@ -52,8 +54,11 @@ func create_tokens():
 			break
 		
 		elif current_char == ">":
-			new_tokens.append(Token.new(line, Constants.TOKEN_LESS_THAN))
 			advance()
+			if current_char == "=":
+				new_tokens.append(Token.new(line, Constants.TOKEN_LESS_OR_EQUAL_TO))
+			else:
+				new_tokens.append(Token.new(line, Constants.TOKEN_LESS_THAN))
 		elif current_char == '"': # Strings
 			new_tokens.append(make_string())
 		elif current_char in Constants.DIGITS: # Numbers
@@ -160,6 +165,9 @@ func make_keyword_token():
 	
 	elif value_type == "if":
 		return Token.new(line, Constants.TOKEN_IF)
+	
+	elif value_type == "else":
+		return Token.new(line, Constants.TOKEN_ELSE)
 	
 	else:
 		Error.new("Invalid Syntax", "Sorry, we are not able to identify the problem, but there is a referance without any value.")

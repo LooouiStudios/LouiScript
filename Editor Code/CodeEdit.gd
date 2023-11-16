@@ -28,7 +28,8 @@ var keywords = {
 	"false": "dark_purple",
 	"bool": "light_purple",
 	"pass": "orange",
-	"if": "dark_purple"
+	"if": "dark_purple",
+	"else": "dark_purple"
 }
 
 @onready var auto_completion_keywords = [
