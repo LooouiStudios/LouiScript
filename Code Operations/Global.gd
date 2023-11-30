@@ -14,7 +14,8 @@ var TOKEN_PATTERNS = {
 	
 	"IF_STATEMENT": [TOKEN_IF, "VALUE", "IF_OPERATOR", "VALUE", TOKEN_END],
 	"ELSE_IF_STATEMENT": [TOKEN_ELSE, TOKEN_IF, "VALUE", "IF_OPERATOR", "VALUE", TOKEN_END],
-	"ELSE_STATEMENT": [TOKEN_ELSE, TOKEN_END]
+	"ELSE_STATEMENT": [TOKEN_ELSE, TOKEN_END],
+	"WHILE_STATEMENT": [TOKEN_WHILE, "VALUE", "IF_OPERATOR", "VALUE", TOKEN_END]
 }
 
 # Constants
@@ -53,11 +54,11 @@ var DEFINED_VARIABLE = []
 # Token Types
 
 # Value types
-const TOKEN_INT = "INT"
-const TOKEN_FLOAT = "FLOAT"
-const TOKEN_BOOL = "BOOL"
-const TOKEN_STRING = "STRING"
-const TOKEN_VALUE_TYPE = "VALUE_TYPE"
+const TOKEN_INT = "INT" # 0
+const TOKEN_FLOAT = "FLOAT" # 0.0
+const TOKEN_BOOL = "BOOL" # true
+const TOKEN_STRING = "STRING" # "Hello, world!"
+const TOKEN_VALUE_TYPE = "VALUE_TYPE" # (float, int, string, bool)
 
 # If Value types
 @onready var IF_VALUES = [TOKEN_EQUAL_TO, TOKEN_NOT_EQUAL_TO, TOKEN_BIGGER_THAN, TOKEN_LESS_THAN]
@@ -69,26 +70,28 @@ const TOKEN_LESS_THAN = "LESS_THAN" # >
 const TOKEN_LESS_OR_EQUAL_TO = "LESS_EQUAL" # >=
 
 # Math operators
-const TOKEN_PLUS = "PLUS"
-const TOKEN_MINUS = "MINUS"
-const TOKEN_MULTIPLY = "MULTIPLY"
-const TOKEN_DIVIDE = "DIVIDE"
-const TOKEN_EQUALS = "EQUALS"
-const TOKEN_COMMA = "COMMA"
+const TOKEN_PLUS = "PLUS" # +
+const TOKEN_MINUS = "MINUS" # -
+const TOKEN_MULTIPLY = "MULTIPLY" # *
+const TOKEN_DIVIDE = "DIVIDE" # /
+const TOKEN_EQUALS = "EQUALS" # = 
+const TOKEN_COMMA = "COMMA" # , 
 
 # Parentheses
-const TOKEN_LPAREN = "LPAREN"
-const TOKEN_RPAREN = "RPAREN"
+const TOKEN_LPAREN = "LPAREN" # (
+const TOKEN_RPAREN = "RPAREN" # )
 
 # Variables
-const TOKEN_VARIABLE = "DEFINE_VARIABLE"
-const TOKEN_DEFINED_VARIABLE = "VARIABLE"
+const TOKEN_VARIABLE = "DEFINE_VARIABLE" # @some_variable,
+const TOKEN_DEFINED_VARIABLE = "VARIABLE" # some_variable
 
 # Functions
-const TOKEN_DEFINE_FUNCTION = "DEFINE_FUNCTION"
-const TOKEN_CALL_FUNCTION = "CALL_FUNCTION"
+const TOKEN_DEFINE_FUNCTION = "DEFINE_FUNCTION" #
+const TOKEN_CALL_FUNCTION = "CALL_FUNCTION" #
 
 # Other
-const TOKEN_END = "LINE_END"
-const TOKEN_IF = "IF"
-const TOKEN_ELSE = "ELSE"
+const TOKEN_IF = "IF" # if
+const TOKEN_ELSE = "ELSE" # else
+const TOKEN_WHILE = "WHILE"# while
+
+const TOKEN_END = "LINE_END" # nothing, just the end of the line.

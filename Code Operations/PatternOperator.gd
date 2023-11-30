@@ -6,6 +6,7 @@ var tokens
 var main
 
 var if_result = false
+var while_result = false
 
 # Called when the node enters the scene tree for the first time.
 func _init(_pattern_ : String, _tokens_ : Array, _main_ : Object):
@@ -61,7 +62,6 @@ func create_output():
 			else:
 				Error.new("Invalid Types", "In a 'random_int' function both values must be ints")
 	
-	
 	# [0: TOKEN_CALL_FUNCTION, 1: TOKEN_LPAREN, 2: "VALUE", 3: TOKEN_RPAREN, 4: TOKEN_END]
 	elif pattern == "FUNCTION_CALL_+_INPUT":
 		if tokens[0].value == "print":
@@ -105,14 +105,35 @@ func create_output():
 		var value1 = tokens[1].value
 		var value2 = tokens[3].value
 		if_statement(value1, value2, tokens[2])
+		return "success"
 	
-	#[0: TOKEN_ELSE, 1: TOKEN_IF, 2: "VALUE", 3: "IF_OPERATOR", 4: "VALUE"],
+	#[0: TOKEN_ELSE, 1: TOKEN_IF, 2: "VALUE", 3: "IF_OPERATOR", 4: "VALUE", 5: TOKEN_END],
 	elif pattern == "ELSE_IF_STATEMENT":
 		var value1 = tokens[2].value
 		var value2 = tokens[4].value
 		if_statement(value1, value2, tokens[3])
+		return "success"
+	
+	#[0: TOKEN_WHILE, 1: "VALUE", 2: "IF_OPERATOR", 3: "VALUE", 4: TOKEN_END]
+	elif pattern == "WHILE_STATEMENT":
+		var value1 = tokens[1].value
+		var value2 = tokens[3].value
+		var result = statement(value1, value2, tokens[2])
+		while_result = result
+		#print("WHILE RESULT: ", result)
 
 func if_statement(value1, value2, operator):
+	var result = statement(value1, value2, operator)
+	
+	print(value1, " ", value2)
+	print("----Result: ", result)
+	if result:
+		main.ifs_passed.append(tokens[0].tabs + 1)
+	if_result = result
+	
+	return "success"
+
+func statement(value1, value2, operator):
 	var result = false
 	if operator.type == "EQUAL_TO":
 		result = value1 == value2
@@ -126,13 +147,7 @@ func if_statement(value1, value2, operator):
 	elif operator.type == "LESS_THAN":
 		result = value1 > value2
 	
-	print(value1, " ", value2)
-	print("----Result: ", result)
-	if result:
-		main.ifs_passed.append(tokens[0].tabs + 1)
-	if_result = result
-	
-	return "success"
+	return result
 
 func define_variable(VALUE):
 	var VARIABLE_NAME = tokens[0]; var VARIABLE_TYPE = tokens[1];

@@ -161,13 +161,16 @@ func make_keyword_token():
 	elif value_type in main.active_variables.keys():
 		var token = main.active_variables[value_type]
 		if token != null:
-			return Token.new(line, token.type, token.value)
+			return Token.new(line, token.type, token.value, value_type)
 	
 	elif value_type == "if":
 		return Token.new(line, Constants.TOKEN_IF)
 	
 	elif value_type == "else":
 		return Token.new(line, Constants.TOKEN_ELSE)
+	
+	elif value_type == "while":
+		return Token.new(line, Constants.TOKEN_WHILE)
 	
 	else:
 		Error.new("Invalid Syntax", "Sorry, we are not able to identify the problem, but there is a referance without any value.")
