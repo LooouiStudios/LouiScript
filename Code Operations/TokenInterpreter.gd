@@ -91,10 +91,10 @@ func precedence(op):
 		return 1
 	return 0
 
-func print_tokens(tokens):
+func print_tokens(i_tokens):
 	var string = "["
-	for token in tokens:
-		if token != tokens[0]:
+	for token in i_tokens:
+		if token != i_tokens[0]:
 			string += ", "
 		string += token.type
 		if token.value != null:

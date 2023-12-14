@@ -220,6 +220,10 @@ theme_override_colors/background_color = Color(0.164706, 0.152941, 0.203922, 1)
 theme_override_colors/line_number_color = Color(0.34902, 0.352941, 0.458824, 1)
 theme_override_fonts/font = ExtResource("4_1q75y")
 theme_override_font_sizes/font_size = 18
+text = "def test()
+	print(\"Test\")
+
+test()"
 draw_tabs = true
 syntax_highlighter = SubResource("CodeHighlighter_o1rta")
 gutters_draw_line_numbers = true
@@ -378,6 +382,7 @@ offset_right = 383.0
 offset_bottom = 69.0
 text = "(prompt)"
 
+[connection signal="pressed" from="Top Bar/Left/Save" to="Top Bar" method="_on_save_pressed"]
 [connection signal="pressed" from="Top Bar/Left/Start" to="." method="_on_start_pressed"]
 [connection signal="text_changed" from="CodeEdit" to="CodeEdit" method="_on_text_changed"]
 [connection signal="pressed" from="NavBar/HBoxContainer/ConsoleToggle" to="Console" method="_on_console_toggle_pressed"]

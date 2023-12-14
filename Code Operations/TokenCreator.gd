@@ -27,7 +27,6 @@ func advance(change = 1):
 
 func create_tokens():
 	var new_tokens = []
-	var slash_count = 0
 	var advance_auto = false
 	
 	while current_char != null:
@@ -76,7 +75,6 @@ func create_tokens():
 			advance()
 		elif current_char == "/":
 			new_tokens.append(Token.new(line, Constants.TOKEN_DIVIDE))
-			slash_count += 1
 			advance()
 		elif current_char == "(":
 			new_tokens.append(Token.new(line, Constants.TOKEN_LPAREN))
@@ -172,8 +170,18 @@ func make_keyword_token():
 	elif value_type == "while":
 		return Token.new(line, Constants.TOKEN_WHILE)
 	
+	elif value_type == "for":
+		return Token.new(line, Constants.TOKEN_FOR)
+	
+	elif value_type == "in":
+		return Token.new(line, Constants.TOKEN_IN)
+	
+	elif value_type == "def":
+		return Token.new(line, Constants.TOKEN_DEFINE_FUNCTION)
+		
 	else:
-		Error.new("Invalid Syntax", "Sorry, we are not able to identify the problem, but there is a referance without any value.")
+		return Token.new(line, Constants.TOKEN_NAME, value_type)
+		#Error.new("Invalid Syntax", "Sorry, we are not able to identify the problem, but there is a referance without any value.")
 
 func make_equals():
 	advance()

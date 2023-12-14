@@ -15,7 +15,10 @@ var TOKEN_PATTERNS = {
 	"IF_STATEMENT": [TOKEN_IF, "VALUE", "IF_OPERATOR", "VALUE", TOKEN_END],
 	"ELSE_IF_STATEMENT": [TOKEN_ELSE, TOKEN_IF, "VALUE", "IF_OPERATOR", "VALUE", TOKEN_END],
 	"ELSE_STATEMENT": [TOKEN_ELSE, TOKEN_END],
-	"WHILE_STATEMENT": [TOKEN_WHILE, "VALUE", "IF_OPERATOR", "VALUE", TOKEN_END]
+	"WHILE_STATEMENT": [TOKEN_WHILE, "VALUE", "IF_OPERATOR", "VALUE", TOKEN_END],
+	"FOR_LOOP": [TOKEN_FOR, TOKEN_NAME, TOKEN_IN, "VALUE", TOKEN_END],
+	"DEFINE_FUNCTION": [TOKEN_DEFINE_FUNCTION, TOKEN_NAME, TOKEN_RPAREN, TOKEN_LPAREN, TOKEN_END],
+	"CALL_FUNCTION": [TOKEN_NAME, TOKEN_LPAREN, TOKEN_RPAREN, TOKEN_END],
 }
 
 # Constants
@@ -25,7 +28,7 @@ const VALUE_TYPES = ["int", "float", "string", "bool", "variable"]
 const KEYWORDS = [
 	"true", 
 	"false",
-	]
+]
 
 const IN_BUILT_FUNCTIONS = [
 	"print",
@@ -84,14 +87,17 @@ const TOKEN_RPAREN = "RPAREN" # )
 # Variables
 const TOKEN_VARIABLE = "DEFINE_VARIABLE" # @some_variable,
 const TOKEN_DEFINED_VARIABLE = "VARIABLE" # some_variable
+const TOKEN_NAME = "NAME" # i
 
 # Functions
-const TOKEN_DEFINE_FUNCTION = "DEFINE_FUNCTION" #
-const TOKEN_CALL_FUNCTION = "CALL_FUNCTION" #
+const TOKEN_DEFINE_FUNCTION = "DEFINE_FUNCTION" # def 
+const TOKEN_CALL_FUNCTION = "CALL_FUNCTION" # some_func
 
 # Other
 const TOKEN_IF = "IF" # if
 const TOKEN_ELSE = "ELSE" # else
 const TOKEN_WHILE = "WHILE"# while
+const TOKEN_FOR = "FOR" # for
+const TOKEN_IN = "IN" # in
 
 const TOKEN_END = "LINE_END" # nothing, just the end of the line.

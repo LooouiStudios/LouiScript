@@ -1,0 +1,8 @@
+@x, int = 0
+
+def print_og()
+    @x, int = add(x, 1)
+    print(x)
+
+for i in 10
+	print_og()

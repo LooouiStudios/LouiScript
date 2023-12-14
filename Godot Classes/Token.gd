@@ -1,8 +1,8 @@
 extends Node
 class_name Token
 
-var type = null
-var value = null
+var type = null # INT 
+var value = null # 0
 var tabs = 0
 var variable_name = ""
 

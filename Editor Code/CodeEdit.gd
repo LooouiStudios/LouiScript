@@ -29,7 +29,9 @@ var keywords = {
 	"bool": "light_purple",
 	"pass": "orange",
 	"if": "dark_purple",
-	"else": "dark_purple"
+	"else": "dark_purple",
+	"in": "orange",
+	"def": "dark_purple"
 }
 
 @onready var auto_completion_keywords = [
@@ -42,6 +44,8 @@ var font_size = 38
 var old_text = ""
 
 func _ready():
+	var file = FileAccess.open('program.loui', FileAccess.READ)
+	text = file.get_as_text()
 	for keyword in keywords.keys():
 		syntax_highlighter.keyword_colors[keyword] = colors[keywords[keyword]]
 	
@@ -91,3 +95,11 @@ func _on_text_changed():
 		add_code_completion_option(CodeEdit.KIND_PLAIN_TEXT, keyword, keyword)
 	update_code_completion_options(false)
 	#print(get_code_completion_options())
+
+func _notification(what):
+	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		save()
+
+func save():
+	var file = FileAccess.open('program.loui', FileAccess.WRITE)
+	file.store_string(text)
